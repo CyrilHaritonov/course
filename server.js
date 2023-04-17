@@ -1,7 +1,7 @@
 import express from "express";
 import {fromUrl} from "geotiff";
 import * as path from "path";
-import "main";
+
 const app = express();
 
 app.get('/', (req, res) => {

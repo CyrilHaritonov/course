@@ -4,8 +4,8 @@ function neighbourhoodRectangle(array, width, height, x, y) {
     let rightOffset = Math.floor(width / 2);
     let topOffset = Math.ceil(height / 2);
     let botOffset = Math.floor(height / 2);
-    for (let i = y - topOffset; i <= y + botOffset; i++) {
-        for (let j = x - leftOffset; j <= x + rightOffset; j++) {
+    for (let i = y - topOffset + 1; i <= y + botOffset; i++) {
+        for (let j = x - leftOffset + 1; j <= x + rightOffset; j++) {
             if (i >= 0 && i < array.length && j >= 0 && array[i].length > j) {
                 result.push(array[i][j]);
             }
@@ -48,7 +48,7 @@ function neighbourhoodSector(array, radius, sectorStart, sectorEnd, x, y) {
             let dy = i - y;
             let distance = Math.sqrt(dx ** 2 + dy ** 2);
             if (distance <= radius) {
-                const angle = Math.atan2(dy, dx);
+                const angle = (Math.atan2(dy, dx) % (2 * 3.141593) + (2 * 3.141593)) % (2 * 3.141593);
                 if (angle >= sectorStart && angle <= sectorEnd) {
                     result.push(array[i][j]);
                 }
@@ -66,13 +66,13 @@ function determineNeighbourhoodParams(array, startX, finalX, startY, finalY, y) 
         finalParam = finalX;
     } else if (y === startY) {
         startingParam = startX;
-        finalParam = array[y].length;
+        finalParam = array[y].length - 1;
     } else if (y === finalY) {
         startingParam = 0;
         finalParam = finalX;
     } else {
         startingParam = 0;
-        finalParam = array[y].length;
+        finalParam = array[y].length - 1;
     }
     return [startingParam, finalParam];
 }
@@ -83,7 +83,7 @@ function movingWindowRectangle(array, startX, startY, finalX, finalY, func, widt
         let currentRow = [];
         let startingParam, finalParam;
         [startingParam, finalParam] = determineNeighbourhoodParams(array, startX, finalX, startY, finalY, y);
-        for (let x = startingParam; x < finalParam; x++) {
+        for (let x = startingParam; x <= finalParam; x++) {
             currentRow.push(func(neighbourhoodRectangle(array, width, height, x, y)));
         }
         result.push(currentRow);
@@ -97,7 +97,7 @@ function movingWindowCircle(array, startX, startY, finalX, finalY, func, radius)
         let currentRow = [];
         let startingParam, finalParam;
         [startingParam, finalParam] = determineNeighbourhoodParams(array, startX, finalX, startY, finalY, y);
-        for (let x = startingParam; x < finalParam; x++) {
+        for (let x = startingParam; x <= finalParam; x++) {
             currentRow.push(func(neighbourhoodCircle(array, radius, x, y)));
         }
         result.push(currentRow);
@@ -111,7 +111,7 @@ function movingWindowRing(array, startX, startY, finalX, finalY, func, outerRadi
         let currentRow = [];
         let startingParam, finalParam;
         [startingParam, finalParam] = determineNeighbourhoodParams(array, startX, finalX, startY, finalY, y);
-        for (let x = startingParam; x < finalParam; x++) {
+        for (let x = startingParam; x <= finalParam; x++) {
             currentRow.push(func(neighbourhoodRing(array, outerRadius, innerRadius, x, y)));
         }
         result.push(currentRow);
@@ -125,7 +125,7 @@ function movingWindowSector(array, startX, startY, finalX, finalY, func, radius,
         let currentRow = [];
         let startingParam, finalParam;
         [startingParam, finalParam] = determineNeighbourhoodParams(array, startX, finalX, startY, finalY, y);
-        for (let x = startingParam; x < finalParam; x++) {
+        for (let x = startingParam; x <= finalParam; x++) {
             currentRow.push(func(neighbourhoodSector(array, radius, sectorStart, sectorEnd, x, y)));
         }
         result.push(currentRow);
@@ -139,12 +139,25 @@ function blockOperation(array, width, height, func) {
     let rightOffset = Math.floor(width / 2);
     let topOffset = Math.ceil(height / 2);
     let botOffset = Math.floor(height / 2);
-    for (let y = topOffset; y < array.length + botOffset; y++) {
+    for (let y = topOffset - 1; y <= array.length + botOffset - 1; y += height) {
         let currentRow = [];
-        for (let x = leftOffset; x < array[y].length + rightOffset; x++) {
+        for (let x = leftOffset - 1; x <= array[y].length + rightOffset - 1; x += width) {
             currentRow.push(func(neighbourhoodRectangle(array, width, height, x, y)));
         }
         result.push(currentRow);
     }
     return result;
 }
+
+module.exports = {
+    neighbourhoodRectangle,
+    neighbourhoodCircle,
+    neighbourhoodRing,
+    neighbourhoodSector,
+    determineNeighbourhoodParams,
+    movingWindowRectangle,
+    movingWindowCircle,
+    movingWindowRing,
+    movingWindowSector,
+    blockOperation
+};
