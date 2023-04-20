@@ -1,12 +1,15 @@
 import React from 'react';
 import MapComponent from './MapComponent.jsx';
+import PropertiesComponent from "./PropertiesComponent";
 
 function App() {
     return (
         <>
-            <h1>ABOBA</h1>
-            <div id={"main"}>
-                <MapComponent/>
+            <div className="container">
+                <div className="row">
+                    <PropertiesComponent/>
+                    <MapComponent/>
+                </div>
             </div>
 
         </>

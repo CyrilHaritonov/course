@@ -141,7 +141,7 @@ export function blockOperation(array, width, height, func) {
     let botOffset = Math.floor(height / 2);
     for (let y = topOffset - 1; y <= array.length + botOffset - 1; y += height) {
         let currentRow = [];
-        for (let x = leftOffset - 1; x <= array[y].length + rightOffset - 1; x += width) {
+        for (let x = leftOffset - 1; x <= array[0].length + rightOffset - 1; x += width) {
             currentRow.push(func(neighbourhoodRectangle(array, width, height, x, y)));
         }
         result.push(currentRow);

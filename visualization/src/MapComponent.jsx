@@ -32,7 +32,7 @@ function MapComponent() {
     }, []);
 
     return (
-        <div id={'map'} style={{width: '100%', height: '400px'}}></div>
+        <div id={'map'} style={{height: '960px'}} className={"col-9"}></div>
     );
 }
 
