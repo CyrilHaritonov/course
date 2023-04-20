@@ -1,4 +1,4 @@
-const {determineNeighbourhoodParams} = require("../main.js");
+import {determineNeighbourhoodParams} from "../main.js";
 test('determine params from first row to last row', () => {
     expect(determineNeighbourhoodParams([[1, 2, 3, 4, 5],
         [1, 2, 3, 4, 5],

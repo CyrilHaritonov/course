@@ -1,4 +1,5 @@
-const {neighbourhoodRectangle} = require('../main');
+import {neighbourhoodRectangle} from "../main";
+
 test('picking part from array with neighbourhoodRectangle', () => {
     expect(neighbourhoodRectangle(
         [[1, 2, 3, 4, 5],

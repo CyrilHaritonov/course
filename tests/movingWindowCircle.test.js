@@ -1,4 +1,5 @@
-const {movingWindowCircle} = require("../main.js");
+import {movingWindowCircle} from "../main.js";
+
 test('moving window circle result on array with sum function', () => {
     expect(movingWindowCircle([[1, 2, 3, 4, 5],
         [1, 2, 3, 4, 5],

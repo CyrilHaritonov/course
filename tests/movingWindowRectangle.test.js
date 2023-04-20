@@ -1,4 +1,5 @@
-const {movingWindowRectangle} = require("../main.js");
+import {movingWindowRectangle} from "../main.js";
+
 test('moving window rectangle result on array with sum function', () => {
     expect(movingWindowRectangle([[1, 2, 3, 4, 5],
         [1, 2, 3, 4, 5],

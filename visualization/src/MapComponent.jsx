@@ -1,8 +1,6 @@
 import React, {useEffect, useState} from 'react';
 import Map from 'ol/Map';
-import OSM from 'ol/source/OSM';
 import View from 'ol/View';
-import TileLayer from 'ol/layer/Tile';
 import 'ol/ol.css';
 import ImageLayer from "ol/layer/Image";
 import {ImageStatic} from "ol/source";
@@ -15,7 +13,7 @@ function MapComponent() {
             target: 'map',
             layers: [new ImageLayer({
                 source: new ImageStatic({
-                    url: 'http://localhost:3001/getpng',
+                    url: 'http://localhost:3001/generatepng',
                     imageExtent: [-180, -90, 180, 90],
                     projection: 'EPSG:4326'
                 })

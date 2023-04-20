@@ -1,4 +1,5 @@
-const {blockOperation} = require("../main.js");
+import {blockOperation} from "../main.js";
+
 test('block operation test multiple blocks', () => {
    expect(blockOperation([[1, 2, 3, 4, 5],
        [1, 2, 3, 4, 5],

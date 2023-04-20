@@ -1,4 +1,5 @@
-const {neighbourhoodRing} = require("../main.js");
+import {neighbourhoodRing} from "../main.js";
+
 test('picking part from the center of the array with neighbourhoodRing', () => {
         expect(neighbourhoodRing(
             [[1, 2, 3, 4, 5],

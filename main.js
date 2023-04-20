@@ -1,4 +1,4 @@
-function neighbourhoodRectangle(array, width, height, x, y) {
+export function neighbourhoodRectangle(array, width, height, x, y) {
     let result = [];
     let leftOffset = Math.ceil(width / 2);
     let rightOffset = Math.floor(width / 2);
@@ -14,7 +14,7 @@ function neighbourhoodRectangle(array, width, height, x, y) {
     return result;
 }
 
-function neighbourhoodCircle(array, radius, x, y) {
+export function neighbourhoodCircle(array, radius, x, y) {
     let result = [];
     for (let i = 0; i < array.length; i++) {
         for (let j = 0; j < array[i].length; j++) {
@@ -27,7 +27,7 @@ function neighbourhoodCircle(array, radius, x, y) {
     return result;
 }
 
-function neighbourhoodRing(array, outerRadius, innerRadius, x, y) {
+export function neighbourhoodRing(array, outerRadius, innerRadius, x, y) {
     let result = [];
     for (let i = 0; i < array.length; i++) {
         for (let j = 0; j < array[i].length; j++) {
@@ -40,7 +40,7 @@ function neighbourhoodRing(array, outerRadius, innerRadius, x, y) {
     return result;
 }
 
-function neighbourhoodSector(array, radius, sectorStart, sectorEnd, x, y) {
+export function neighbourhoodSector(array, radius, sectorStart, sectorEnd, x, y) {
     const result = [];
     for (let i = 0; i < array.length; i++) {
         for (let j = 0; j < array[i].length; j++) {
@@ -58,7 +58,7 @@ function neighbourhoodSector(array, radius, sectorStart, sectorEnd, x, y) {
     return result;
 }
 
-function determineNeighbourhoodParams(array, startX, finalX, startY, finalY, y) {
+export function determineNeighbourhoodParams(array, startX, finalX, startY, finalY, y) {
     let startingParam;
     let finalParam;
     if (y === startY && y === finalY) {
@@ -77,7 +77,7 @@ function determineNeighbourhoodParams(array, startX, finalX, startY, finalY, y) 
     return [startingParam, finalParam];
 }
 
-function movingWindowRectangle(array, startX, startY, finalX, finalY, func, width, height) {
+export function movingWindowRectangle(array, startX, startY, finalX, finalY, func, width, height) {
     let result = [];
     for (let y = startY; y <= finalY; y++) {
         let currentRow = [];
@@ -91,7 +91,7 @@ function movingWindowRectangle(array, startX, startY, finalX, finalY, func, widt
     return result;
 }
 
-function movingWindowCircle(array, startX, startY, finalX, finalY, func, radius) {
+export function movingWindowCircle(array, startX, startY, finalX, finalY, func, radius) {
     let result = [];
     for (let y = startY; y <= finalY; y++) {
         let currentRow = [];
@@ -105,7 +105,7 @@ function movingWindowCircle(array, startX, startY, finalX, finalY, func, radius)
     return result;
 }
 
-function movingWindowRing(array, startX, startY, finalX, finalY, func, outerRadius, innerRadius) {
+export function movingWindowRing(array, startX, startY, finalX, finalY, func, outerRadius, innerRadius) {
     let result = [];
     for (let y = startY; y <= finalY; y++) {
         let currentRow = [];
@@ -119,7 +119,7 @@ function movingWindowRing(array, startX, startY, finalX, finalY, func, outerRadi
     return result;
 }
 
-function movingWindowSector(array, startX, startY, finalX, finalY, func, radius, sectorStart, sectorEnd) {
+export function movingWindowSector(array, startX, startY, finalX, finalY, func, radius, sectorStart, sectorEnd) {
     let result = [];
     for (let y = startY; y <= finalY; y++) {
         let currentRow = [];
@@ -133,7 +133,7 @@ function movingWindowSector(array, startX, startY, finalX, finalY, func, radius,
     return result;
 }
 
-function blockOperation(array, width, height, func) {
+export function blockOperation(array, width, height, func) {
     let result = [];
     let leftOffset = Math.ceil(width / 2);
     let rightOffset = Math.floor(width / 2);
@@ -149,15 +149,10 @@ function blockOperation(array, width, height, func) {
     return result;
 }
 
-module.exports = {
-    neighbourhoodRectangle,
-    neighbourhoodCircle,
-    neighbourhoodRing,
-    neighbourhoodSector,
-    determineNeighbourhoodParams,
-    movingWindowRectangle,
-    movingWindowCircle,
-    movingWindowRing,
-    movingWindowSector,
-    blockOperation
-};
+export function create2DArray(arr, height, width) {
+    const result = [];
+    for (let i = 0; i < height; i++) {
+        result.push(arr.slice(i * width, (i + 1) * width));
+    }
+    return result;
+}

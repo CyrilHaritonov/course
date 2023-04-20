@@ -1,4 +1,4 @@
-const {neighbourhoodCircle} = require('../main');
+import {neighbourhoodCircle} from "../main";
 
 test('picking part of radius 1 from the center of array with neighbourhoodCircle', () => {
     expect(neighbourhoodCircle(

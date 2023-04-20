@@ -1,4 +1,5 @@
-const {neighbourhoodSector} = require("../main.js");
+import {neighbourhoodSector} from "../main.js";
+
 test('picking lower part from the center of array with neighbourhoodCircle', () => {
     expect(neighbourhoodSector(
         [[1, 2, 3, 4, 5],
