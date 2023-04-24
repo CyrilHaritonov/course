@@ -1,7 +1,8 @@
-import React, {useState} from "react";
+import React, {useEffect, useLayoutEffect, useState} from "react";
 
-function PropertiesComponent() {
+function PropertiesComponent(props) {
     const [operation, setOperation] = useState('Moving window rectangle');
+    const [isLoading, setLoading] = useState(false);
     const [startX, setStartX] = useState();
     const [startY, setStartY] = useState();
     const [finalX, setFinalX] = useState();
@@ -67,20 +68,35 @@ function PropertiesComponent() {
     }
 
     const handleClick = () => {
+        setLoading(true);
         if (operation === "Moving window rectangle") {
             fetch("http://localhost:3001/movingwindowrectangle?startx=" + startX + "&starty=" + startY
-                + "&finalx=" + finalX + "&finaly=" + finalY + "&func=" + func + "&width=" + width + "&height=" + height).then(res => {
-                    console.log(res);
-            })
+                + "&finalx=" + finalX + "&finaly=" + finalY + "&func=" + func + "&rectanglewidth=" + width + "&rectangleheight=" + height).then(res => {
+                props.setReload(!props.reload);
+                setLoading(false);
+            });
         } else if (operation === "Moving window circle") {
-
+            fetch("http://localhost:3001/movingwindowcircle?startx=" + startX + "&starty=" + startY + "&finalx="
+                + finalX + "&finaly=" + finalY + "&func=" + func + "&radius=" + radius).then(res => {
+                props.setReload(!props.reload);
+                setLoading(false);
+            });
         } else if (operation === "Moving window ring") {
-
+            fetch("http://localhost:3001/movingwindowring?startx=" + startX + "&starty=" + startY + "&finalx="
+                + finalX + "&finaly=" + finalY + "&func=" + func + "&innerradius=" + innerRadius + "&outerradius=" + outerRadius).then(res => {
+                props.setReload(!props.reload);
+                setLoading(false);
+            })
         } else if (operation === "Moving window sector") {
-
+            fetch("http://localhost:3001/movingwindowsector?startx=" + startX + "&starty=" + startY + "&finalx="
+                + finalX + "&finaly=" + finalY + "&func=" + func + "&radius=" + radius + "&sectorstart=" + sectorStart + "&sectorend=" + sectorEnd).then(res => {
+                props.setReload(!props.reload);
+                setLoading(false);
+            });
         } else if (operation === "Block operation") {
             fetch("http://localhost:3001/blockoperation?func=" + func + "&blockwidth=" + width + "&blockheight=" + height).then(res => {
-                console.log(res);
+                props.setReload(!props.reload);
+                setLoading(false);
             });
         }
     }
@@ -229,7 +245,8 @@ function PropertiesComponent() {
                     <option value="Product">Product</option>
                 </select>
             </div>}
-            <button className={"btn btn-primary"} type={"button"} onClick={handleClick}>Apply</button>
+            <button className={"btn btn-primary"} type={"button"}
+                    onClick={handleClick}>{isLoading && "Loading..."}{!isLoading && "Apply"}</button>
         </div>
 
     );

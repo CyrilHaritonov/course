@@ -16,11 +16,13 @@ export function neighbourhoodRectangle(array, width, height, x, y) {
 
 export function neighbourhoodCircle(array, radius, x, y) {
     let result = [];
-    for (let i = 0; i < array.length; i++) {
-        for (let j = 0; j < array[i].length; j++) {
-            let distance = Math.sqrt((j - x) ** 2 + (i - y) ** 2);
-            if (distance <= radius) {
-                result.push(array[i][j]);
+    for (let i = y - radius; i <= y + radius; i++) {
+        for (let j = x - radius; j <= x + radius; j++) {
+            if (i >= 0 && i < array.length && j >= 0 && array[i].length > j) {
+                let distance = Math.sqrt((j - x) ** 2 + (i - y) ** 2);
+                if (distance <= radius) {
+                    result.push(array[i][j]);
+                }
             }
         }
     }
@@ -29,11 +31,13 @@ export function neighbourhoodCircle(array, radius, x, y) {
 
 export function neighbourhoodRing(array, outerRadius, innerRadius, x, y) {
     let result = [];
-    for (let i = 0; i < array.length; i++) {
-        for (let j = 0; j < array[i].length; j++) {
-            let distance = Math.sqrt((j - x) ** 2 + (i - y) ** 2);
-            if (distance <= outerRadius && distance >= innerRadius) {
-                result.push(array[i][j]);
+    for (let i = y - outerRadius; i <= y + outerRadius; i++) {
+        for (let j = x - outerRadius; j <= x + outerRadius; j++) {
+            if (i >= 0 && i < array.length && j >= 0 && array[i].length > j) {
+                let distance = Math.sqrt((j - x) ** 2 + (i - y) ** 2);
+                if (distance <= outerRadius && distance >= innerRadius) {
+                    result.push(array[i][j]);
+                }
             }
         }
     }
@@ -42,15 +46,17 @@ export function neighbourhoodRing(array, outerRadius, innerRadius, x, y) {
 
 export function neighbourhoodSector(array, radius, sectorStart, sectorEnd, x, y) {
     const result = [];
-    for (let i = 0; i < array.length; i++) {
-        for (let j = 0; j < array[i].length; j++) {
-            let dx = j - x;
-            let dy = i - y;
-            let distance = Math.sqrt(dx ** 2 + dy ** 2);
-            if (distance <= radius) {
-                const angle = (Math.atan2(dy, dx) % (2 * 3.141593) + (2 * 3.141593)) % (2 * 3.141593);
-                if (angle >= sectorStart && angle <= sectorEnd) {
-                    result.push(array[i][j]);
+    for (let i = y - radius; i <= y + radius; i++) {
+        for (let j = x - radius; j <= x + radius; j++) {
+            if (i >= 0 && i < array.length && j >= 0 && array[i].length > j) {
+                let dx = j - x;
+                let dy = i - y;
+                let distance = Math.sqrt(dx ** 2 + dy ** 2);
+                if (distance <= radius) {
+                    const angle = (Math.atan2(dy, dx) % (2 * 3.141593) + (2 * 3.141593)) % (2 * 3.141593);
+                    if (angle >= sectorStart && angle <= sectorEnd) {
+                        result.push(array[i][j]);
+                    }
                 }
             }
         }
