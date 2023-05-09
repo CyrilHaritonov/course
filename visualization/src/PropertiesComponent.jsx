@@ -3,18 +3,18 @@ import React, {useEffect, useLayoutEffect, useState} from "react";
 function PropertiesComponent(props) {
     const [operation, setOperation] = useState('Moving window rectangle');
     const [isLoading, setLoading] = useState(false);
-    const [startX, setStartX] = useState();
-    const [startY, setStartY] = useState();
-    const [finalX, setFinalX] = useState();
-    const [finalY, setFinalY] = useState();
+    const [startX, setStartX] = useState('');
+    const [startY, setStartY] = useState('');
+    const [finalX, setFinalX] = useState('');
+    const [finalY, setFinalY] = useState('');
     const [func, setFunc] = useState("Sum");
-    const [height, setHeight] = useState();
-    const [width, setWidth] = useState();
-    const [radius, setRadius] = useState();
-    const [innerRadius, setInnerRadius] = useState();
-    const [outerRadius, setOuterRadius] = useState();
-    const [sectorStart, setSectorStart] = useState();
-    const [sectorEnd, setSectorEnd] = useState();
+    const [height, setHeight] = useState('');
+    const [width, setWidth] = useState('');
+    const [radius, setRadius] = useState('');
+    const [innerRadius, setInnerRadius] = useState('');
+    const [outerRadius, setOuterRadius] = useState('');
+    const [sectorStart, setSectorStart] = useState('');
+    const [sectorEnd, setSectorEnd] = useState('');
     const handleOperationSelection = (event) => {
         setOperation(event.target.value);
     }
@@ -68,36 +68,60 @@ function PropertiesComponent(props) {
     }
 
     const handleClick = () => {
-        setLoading(true);
         if (operation === "Moving window rectangle") {
-            fetch("http://localhost:3001/movingwindowrectangle?startx=" + startX + "&starty=" + startY
-                + "&finalx=" + finalX + "&finaly=" + finalY + "&func=" + func + "&rectanglewidth=" + width + "&rectangleheight=" + height).then(res => {
-                props.setReload(!props.reload);
-                setLoading(false);
-            });
+            if (startX !== '' && startY !== '' && finalX !== '' && finalY !== '' && width !== '' && height !== '') {
+                setLoading(true);
+                fetch("http://localhost:3001/movingwindowrectangle?startx=" + startX + "&starty=" + startY
+                    + "&finalx=" + finalX + "&finaly=" + finalY + "&func=" + func + "&rectanglewidth=" + width + "&rectangleheight=" + height).then(res => {
+                    props.setReload(!props.reload);
+                    setLoading(false);
+                });
+            } else {
+                alert("Неправильные параметры операции");
+            }
         } else if (operation === "Moving window circle") {
-            fetch("http://localhost:3001/movingwindowcircle?startx=" + startX + "&starty=" + startY + "&finalx="
-                + finalX + "&finaly=" + finalY + "&func=" + func + "&radius=" + radius).then(res => {
-                props.setReload(!props.reload);
-                setLoading(false);
-            });
+            if (startX !== '' && startY !== '' && finalX !== '' && finalY !== '' && radius !== '') {
+                setLoading(true);
+                fetch("http://localhost:3001/movingwindowcircle?startx=" + startX + "&starty=" + startY + "&finalx="
+                    + finalX + "&finaly=" + finalY + "&func=" + func + "&radius=" + radius).then(res => {
+                    props.setReload(!props.reload);
+                    setLoading(false);
+                });
+            } else {
+                alert("Неправильные параметры операции");
+            }
         } else if (operation === "Moving window ring") {
-            fetch("http://localhost:3001/movingwindowring?startx=" + startX + "&starty=" + startY + "&finalx="
-                + finalX + "&finaly=" + finalY + "&func=" + func + "&innerradius=" + innerRadius + "&outerradius=" + outerRadius).then(res => {
-                props.setReload(!props.reload);
-                setLoading(false);
-            })
+            if (startX !== '' && startY !== '' && finalX !== '' && finalY !== '' && innerRadius !== '' && outerRadius !== '') {
+                setLoading(true);
+                fetch("http://localhost:3001/movingwindowring?startx=" + startX + "&starty=" + startY + "&finalx="
+                    + finalX + "&finaly=" + finalY + "&func=" + func + "&innerradius=" + innerRadius + "&outerradius=" + outerRadius).then(res => {
+                    props.setReload(!props.reload);
+                    setLoading(false);
+                });
+            } else {
+                alert("Неправильные параметры операции");
+            }
         } else if (operation === "Moving window sector") {
-            fetch("http://localhost:3001/movingwindowsector?startx=" + startX + "&starty=" + startY + "&finalx="
-                + finalX + "&finaly=" + finalY + "&func=" + func + "&radius=" + radius + "&sectorstart=" + sectorStart + "&sectorend=" + sectorEnd).then(res => {
-                props.setReload(!props.reload);
-                setLoading(false);
-            });
+            if (startX !== '' && startY !== '' && finalX !== '' && finalY !== '' && radius !== '' && sectorStart !== '' && sectorEnd !== '') {
+                setLoading(true);
+                fetch("http://localhost:3001/movingwindowsector?startx=" + startX + "&starty=" + startY + "&finalx="
+                    + finalX + "&finaly=" + finalY + "&func=" + func + "&radius=" + radius + "&sectorstart=" + sectorStart + "&sectorend=" + sectorEnd).then(res => {
+                    props.setReload(!props.reload);
+                    setLoading(false);
+                });
+            } else {
+                alert("Неправильные параметры операции");
+            }
         } else if (operation === "Block operation") {
-            fetch("http://localhost:3001/blockoperation?func=" + func + "&blockwidth=" + width + "&blockheight=" + height).then(res => {
-                props.setReload(!props.reload);
-                setLoading(false);
-            });
+            if (width !== '' && height !== '') {
+                setLoading(true);
+                fetch("http://localhost:3001/blockoperation?func=" + func + "&blockwidth=" + width + "&blockheight=" + height).then(res => {
+                    props.setReload(!props.reload);
+                    setLoading(false);
+                });
+            } else {
+                alert("Неправильные параметры операции");
+            }
         }
     }
 
